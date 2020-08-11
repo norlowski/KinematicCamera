@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/TerrainCamera.gd" type="Script" id=1]
+[ext_resource path="res://scenes/CameraPath.gd" type="Script" id=2]
+[ext_resource path="res://scenes/cameras/new_curve3d.tres" type="Curve3D" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+
+[sub_resource type="CapsuleMesh" id=2]
+
+[node name="TerrainCamera" type="KinematicBody"]
+input_ray_pickable = false
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.017365, 0.999849, 0, -0.999849, 0.017365, 0, 1.4734, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0477864, -0.998858, 0, 0.998858, -0.0477864, 0, 1.5838, 0 )
+visible = false
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Circler" type="Spatial" parent="."]
+
+[node name="Path" type="Path" parent="Circler"]
+curve = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="PathFollow" type="PathFollow" parent="Circler/Path"]
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0.407444, 8.32399, 9.82861 )
+offset = 12.08
+rotation_mode = 0
+loop = false
+
+[node name="Boom" type="Spatial" parent="Circler/Path/PathFollow"]
+
+[node name="rotatex" type="Spatial" parent="Circler/Path/PathFollow/Boom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.58559e-08 )
+
+[node name="Camera" type="Camera" parent="Circler/Path/PathFollow/Boom/rotatex"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.74393e-07 )
+current = true
+far = 4261.6
